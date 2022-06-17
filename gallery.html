@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Gallery</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+::selection{
+  color: #fff;
+  background: #007bff;
+}
+body{
+  padding: 10px;
+}
+.wrapper{
+  margin: 100px auto;
+  max-width: 1100px;
+}
+.wrapper nav{
+  display: flex;
+  justify-content: center;
+}
+.wrapper .items{
+  display: flex;
+  max-width: 720px;
+  width: 100%;
+  justify-content: space-between;
+}
+.items span{
+  padding: 7px 25px;
+  font-size: 18px;
+  margin: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #007bff;
+  border-radius: 50px;
+  border: 2px solid #007bff;
+  transition: all 0.3s ease;
+}
+.items span.active,
+.items span:hover{
+  color: #fff;
+  background: #007bff;
+}
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.gallery .image{
+  width: calc(100% / 4);
+  padding: 7px;
+}
+.gallery .image span{
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+.gallery .image img{
+  width: 100%;
+  vertical-align: middle;
+  transition: all 0.3s ease;
+}
+.gallery .image:hover img{
+  transform: scale(1.1);
+}
+.gallery .image.hide{
+  display: none;
+}
+.gallery .image.show{
+  animation: animate 0.4s ease;
+}
+@keyframes animate {
+  0%{
+    transform: scale(0.5);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.preview-box{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: #fff;
+  max-width: 700px;
+  width: 100%;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 3px;
+  padding: 0 5px 5px 5px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+}
+.preview-box.show{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 0.3s ease;
+}
+.preview-box .details{
+  padding: 13px 15px 13px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.details .title{
+  display: flex;
+  font-size: 18px;
+  font-weight: 400;
+}
+.details .title p{
+  font-weight: 500;
+  margin-left: 5px;
+}
+.details .icon{
+  color: #007bff;
+  font-style: 22px;
+  cursor: pointer;
+}
+.preview-box .image-box{
+  width: 100%;
+  display: flex;
+}
+.image-box img{
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+}
+.shadow{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  display: none;
+  background: rgba(0,0,0,0.4);
+}
+.shadow.show{
+  display: block;
+}
+
+@media (max-width: 1000px) {
+  .gallery .image{
+    width: calc(100% / 3);
+  }
+}
+@media (max-width: 800px) {
+  .gallery .image{
+    width: calc(100% / 2);
+  }
+}
+@media (max-width: 700px) {
+  .wrapper nav .items{
+    max-width: 600px;
+  }
+  nav .items span{
+    padding: 7px 15px;
+  }
+}
+@media (max-width: 600px) {
+  .wrapper{
+    margin: 30px auto;
+  }
+  .wrapper nav .items{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  nav .items span{
+    margin: 5px;
+  }
+  .gallery .image{
+    width: 100%;
+  }
+}
+
+    </style>
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div> -->
+
+
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+
+                        <nav class="navbar navbar-expand-lg">
+                          <a class="navbar-brand" href="index.html">
+                            <h3 class="nav-item" style="color: white;">Bipin</h3>
+                        </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="index.html" aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    <li class="nav-item"><a href="services.html"
+                                            aria-label="Toggle navigation">Services</a></li>
+                                    <li class="nav-item"><a href="gallery.html" class="active"
+                                            aria-label="Toggle navigation">Gallery</a></li>
+                                    <li class="nav-item"><a href="positions.html"
+                                            aria-label="Toggle navigation">Positions</a></li>
+                                    <li class="nav-item"><a href="crs_activities.html"
+                                            aria-label="Toggle navigation">CSR Activities</a></li>
+                                    <li class="nav-item"><a href="initiatives.html"
+                                            aria-label="Toggle navigation">Initiatives</a></li>
+                                    <li class="nav-item"><a href="inspiration.html"
+                                            aria-label="Toggle navigation">Inspiration</a></li>
+                                    <li class="nav-item"><a href="greivience.html"
+                                            aria-label="Toggle navigation">Greivience</a></li>
+                                    <li class="nav-item">
+                                        <a href="about-us.html" aria-label="Toggle navigation">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="contact.html" aria-label="Toggle navigation">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Gallery</h1>
+                        <ul class="breadcrumb-nav">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Gallery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <!-- filter Items -->
+        <nav>
+            <div class="items">
+                <span class="item active" data-name="all">All</span>
+                <span class="item" data-name="meeting">Meeting</span>
+                <span class="item" data-name="service">Service</span>
+                <span class="item" data-name="personal">Personal</span>
+                <span class="item" data-name="awarding">Awarding</span>
+                <span class="item" data-name="rewarding">Rewarding</span>
+              </div>
+        </nav>
+        <!-- filter Images -->
+        <div class="gallery">
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/11.jpg" alt=""></span></div>
+
+            <div class="image" data-name="rewarding"><span><img src="assets/images/Images/e.jpg" alt=""></span></div>
+            <div class="image" data-name="rewarding"><span><img src="assets/images/Images/f.jpg" alt=""></span></div>
+            <div class="image" data-name="rewarding"><span><img src="assets/images/Images/g.jpg" alt=""></span></div>
+            <div class="image" data-name="rewarding"><span><img src="assets/images/Images/h.jpg" alt=""></span></div>
+            <div class="image" data-name="meeting"><span><img src="assets/images/Images/i.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0932.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0645.jpg" alt=""></span></div>
+            <div class="image" data-name="rewarding"><span><img src="assets/images/Images/d.jpg"alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0643.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0693.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0730.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0917.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0920.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0921.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0927.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0928.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_0929.jpg" alt=""></span></div>
+
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_1023.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/DSC_1037.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220103_132313.jpg" alt=""></span></div>
+            <div class="image" data-name="personal"><span><img src="assets/images/Images/IMG_20220103_182019.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220103_190735.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220103_195918.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220104_120328.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220104_124735.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220104_150630.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220104_173936.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG_20220104_182505.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG-20220603-WA0004.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG-20220603-WA0014.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG-20220612-WA0003.jpg" alt=""></span></div>
+            <div class="image" data-name="awarding"><span><img src="assets/images/Images/IMG-20220612-WA0004.jpg" alt=""></span></div>
+
+        </div>
+      </div>
+      <!-- fullscreen img preview box -->
+      <div class="preview-box">
+        <div class="details">
+          <span class="title">Image Category: <p></p></span>
+          <span class="icon fas fa-times"></span>
+        </div>
+        <div class="image-box"><img src="" alt=""></div>
+      </div>
+      <div class="shadow"></div>
+
+
+
+    <footer class="footer section">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+
+                            <div class="single-footer f-about">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <h3>Bipin Jain</h3>
+                                    </a>
+                                </div>
+                                <p>&ldquo;A LIFE NOT LIVED FOR OTHERS IS NOT A LIFE&rdquo;</p>
+                                <h4 class="social-title">Follow Us On:</h4>
+                                <ul class="social">
+                                    <li><a href="https://akulaakshaya.github.io/"><i
+                                                class="lni lni-facebook-filled"></i></a></li>
+                                    <li><a href="https://akulaakshaya.github.io/"><i class="lni lni-instagram"></i></a>
+                                    </li>
+                                    <li><a href="https://akulaakshaya.github.io/"><i
+                                                class="lni lni-twitter-original"></i></a></li>
+                                    <li><a href="https://akulaakshaya.github.io/"><i
+                                                class="lni lni-linkedin-original"></i></a></li>
+                                    <li><a href="https://akulaakshaya.github.io/"><i class="lni lni-pinterest"></i></a>
+                                    </li>
+                                    <li><a href="https://akulaakshaya.github.io/"><i class="lni lni-youtube"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+
+                            <div class="single-footer f-link">
+                                <h3>More about me</h3>
+                                <ul>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="positions.html">Positions</a></li>
+                                    <li><a href="crs_activities.html">CSR Activities</a></li>
+                                    <li><a href="initiatives.html">Initiatives</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+
+                            <div class="single-footer f-link">
+                                <h3>Support</h3>
+                                <ul>
+                                    <li><a href="inspiration.html">Inspiration</a></li>
+                                    <li><a href="greivience.html">Greivience</a></li>
+                                    <li><a href="about-us.html">About</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+
+                            <div class="single-footer newsletter">
+                                <h3>Subscribe</h3>
+                                <p>Subscribe to our newsletter for the latest updates</p>
+                                <form action="#" method="get" target="_blank" class="newsletter-form">
+                                    <input name="EMAIL" placeholder="Email address" required="required" type="email">
+                                    <div class="button">
+                                        <button class="sub-btn"><i class="lni lni-envelope"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="copyright-area">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-text">© 2022 Bipin Jain - All Rights Reserved</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-owner">Designed and Developed by <a
+                                    href="https://akulaakshaya.github.io/" rel="nofollow" target="_blank">Akshaya</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/count-up.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        //========= testimonial
+        tns({
+            container: '.testimonial-slider',
+            items: 3,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 1,
+                },
+                768: {
+                    items: 2,
+                },
+                992: {
+                    items: 2,
+                },
+                1170: {
+                    items: 3,
+                }
+            }
+        });
+
+        //====== counter up
+        var cu = new counterUp({
+            start: 0,
+            duration: 2000,
+            intvalues: true,
+            interval: 100,
+            append: " ",
+        });
+        cu.start();
+    </script>
+    <script src="./assets/css/script.js"></script>
+</body>
+
+</html>
